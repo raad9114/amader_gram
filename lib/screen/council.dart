@@ -48,7 +48,7 @@ class _councilState extends State<council> {
         })
     );
 
-    print(response.body);
+    //print(response.body);
 
     patientDetailsModel = patientDetailsModelFromJson(response.body);
 
@@ -61,7 +61,7 @@ class _councilState extends State<council> {
     super.initState();
     mobileNumber();
     isdisable = false;
-    print(isdisable);
+  //  print(isdisable);
   }
 
   @override
@@ -154,7 +154,7 @@ class _councilState extends State<council> {
                               }));
 
                        //   print(response.body);
-                          print(responsedetails.body);
+                      //    print(responsedetails.body);
 
                           Navigator.push(
                               context,

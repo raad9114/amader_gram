@@ -38,7 +38,7 @@ class _Get_All_DataState extends State<Get_All_Data> {
           "pid": widget.id,
         }));
 
-    print(response.body);
+   // print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -282,16 +282,16 @@ class _Get_All_DataState extends State<Get_All_Data> {
                                   Center(
                                     child: RaisedButton(
                                       onPressed: () async {
-                                        print(index);
-                                        print(snapshot.data!.length);
+                                      //  print(index);
+                                       // print(snapshot.data!.length);
 
-                                        var response = await http.post(
-                                            Uri.parse(
-                                                "http://agcrcdigitalhealthservices.cloud-ag.net/pid_details.php"),
-                                            body: jsonEncode(<String, String>{
-                                              "pid": snapshot.data![index].id,
-                                            }));
-                                        print(response.body);
+                                        // var response = await http.post(
+                                        //     Uri.parse(
+                                        //         "http://agcrcdigitalhealthservices.cloud-ag.net/pid_details.php"),
+                                        //     body: jsonEncode(<String, String>{
+                                        //       "pid": snapshot.data![index].id,
+                                        //     }));
+                                        // print(response.body);
 
                                         Navigator.push(
                                             context,
@@ -299,8 +299,8 @@ class _Get_All_DataState extends State<Get_All_Data> {
                                                 builder: (context) =>
                                                     Follow_UP_Assesment(
                                                       employee_id: widget.employee_id,
-
                                                       uname: widget.uname,
+                                                      doc: snapshot.data![index].doc,
                                                       pname: snapshot.data![index].pname,
                                                       address: snapshot.data![index].address,
                                                       mobile: snapshot.data![index].mobile,

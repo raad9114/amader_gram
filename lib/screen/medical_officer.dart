@@ -24,7 +24,7 @@ class _Medical_officerState extends State<Medical_officer> {
       Uri.parse('http://agcrcdigitalhealthservices.cloud-ag.net/getdata.php'),
     );
 
-    print(response.body);
+  //  print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

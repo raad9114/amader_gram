@@ -15,7 +15,7 @@ class Follow_UP_Assesment extends StatefulWidget {
     required this.pname,
     required this.sex,
     required this.member,
-    required this.dob,
+    required this.dob,required this.doc,
     required this.address,
     required this.mobile,
     required this.maritalStatus,
@@ -31,7 +31,7 @@ class Follow_UP_Assesment extends StatefulWidget {
   String pname;
   String sex;
   String member;
-  String dob;
+  String dob;String doc;
   String address;
   String mobile;
   String maritalStatus;
@@ -79,7 +79,7 @@ class _Follow_UP_AssesmentState extends State<Follow_UP_Assesment> {
   void initState() {
     super.initState();
     isdisable = false;
-    print(isdisable);
+   // print(isdisable);
   }
 
   @override
@@ -137,7 +137,7 @@ class _Follow_UP_AssesmentState extends State<Follow_UP_Assesment> {
                               height: 10,
                             ),
                             Text(
-                              'Last Visited: ${widget.dob}',
+                              'Last Visited: ${widget.doc}',
                               style: GoogleFonts.roboto(
                                 fontSize: 22.0,
                                 color: Colors.black,
@@ -477,7 +477,7 @@ class _Follow_UP_AssesmentState extends State<Follow_UP_Assesment> {
 
 
                             var responsedetails = await http.post(
-                                Uri.parse("http://agcrcdigitalhealthservices.cloud-ag.net/ag_servey_data_details.php"),
+                                Uri.parse("http://agcrcdigitalhealthservices.cloud-ag.net/ag_servey_details_insert.php"),
                                 body: jsonEncode(<String, String>{
                                   "pid" : widget.pid,
                                   "employee_id": widget.employee_id,
@@ -502,7 +502,7 @@ class _Follow_UP_AssesmentState extends State<Follow_UP_Assesment> {
                                   "diabeticvalue": diabeticvalue,
                                 }));
 
-                            print(responsedetails.body);
+                           // print(responsedetails.body);
 
                             Navigator.push(
                                 context,

@@ -20,7 +20,6 @@ class GetData extends StatefulWidget {
 }
 
 class _GetDataState extends State<GetData> {
-
   String searchid = " ";
 
   @override
@@ -31,7 +30,7 @@ class _GetDataState extends State<GetData> {
       Uri.parse('http://agcrcdigitalhealthservices.cloud-ag.net/getdata.php'),
     );
 
-    print(response.body);
+  // print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -43,6 +42,7 @@ class _GetDataState extends State<GetData> {
       throw Exception('Failed to load album');
     }
   }
+
   Icon searchIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Search Patient ID');
 
@@ -55,6 +55,7 @@ class _GetDataState extends State<GetData> {
 
     fetchPost().whenComplete(() => futurePost);
   }
+
   Future<bool> _onWillPop() async {
     return false; //<-- SEE HERE
   }
@@ -74,13 +75,16 @@ class _GetDataState extends State<GetData> {
               centerTitle: true,
               actions: [
                 IconButton(
-                    onPressed: (){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>MyApp()), (route) => false);
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyApp()),
+                          (route) => false);
                     },
-                    icon: Icon(Icons.login_outlined,
+                    icon: Icon(
+                      Icons.login_outlined,
                       color: Colors.black,
-                    )
-                ),
+                    )),
               ],
             ),
             body: SingleChildScrollView(
@@ -100,7 +104,6 @@ class _GetDataState extends State<GetData> {
                         // ),
                         Container(
                           width: 200,
-
                           child: Card(
                             elevation: 2,
                             child: TextField(
@@ -122,8 +125,12 @@ class _GetDataState extends State<GetData> {
                           child: RaisedButton(
                             onPressed: () {
                               Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) =>
-                                  SearchData(id: searchid,role: 'MA',)));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchData(
+                                            id: searchid,
+                                            role: 'MA',
+                                          )));
                             },
                             color: Colors.white,
                             child: Text("Search"),
@@ -144,21 +151,20 @@ class _GetDataState extends State<GetData> {
                               shrinkWrap: true,
                               itemCount: snapshot.data!.length,
                               itemBuilder: (_, index) => Card(
-
                                 elevation: 5,
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Patient ID: " +
                                             "${snapshot.data![index].pid}",
                                         style: GoogleFonts.lato(
-                                          fontSize: 19,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold
-                                        ),
+                                            fontSize: 19,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Text(
                                         "1. Name: " +
@@ -185,7 +191,8 @@ class _GetDataState extends State<GetData> {
                                         ),
                                       ),
                                       Text(
-                                        "4. Gender: " + "${snapshot.data![index].sex}",
+                                        "4. Gender: " +
+                                            "${snapshot.data![index].sex}",
                                         style: GoogleFonts.lato(
                                           fontSize: 16,
                                           color: Colors.black,
@@ -275,7 +282,8 @@ class _GetDataState extends State<GetData> {
                                       ),
                                       Text(
                                         "15. Diabetic: " +
-                                            "${snapshot.data![index].diabeticStatus} " " ${snapshot.data![index].diabeticvalue}",
+                                            "${snapshot.data![index].diabeticStatus} "
+                                                " ${snapshot.data![index].diabeticvalue}",
                                         style: GoogleFonts.lato(
                                           fontSize: 16,
                                           color: Colors.black,

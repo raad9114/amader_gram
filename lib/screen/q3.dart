@@ -72,7 +72,7 @@ class _Q3State extends State<Q3> {
   void initState() {
     super.initState();
     isdisable = false;
-    print(isdisable);
+  //  print(isdisable);
   }
 
   @override
@@ -364,9 +364,9 @@ class _Q3State extends State<Q3> {
                           onPressed: isdisable
                               ? null
                               : () async {
-                                  print(widget.employee_id);
-                                  print(isdisable);
-                                  print("da" + db);
+                                  // print(widget.employee_id);
+                                  // print(isdisable);
+                                  // print("da" + db);
                                   setState(() {
                                     isdisable = true;
                                   });
@@ -434,7 +434,7 @@ class _Q3State extends State<Q3> {
                                         "diabeticvalue": diabeticvalue,
                                       }));
 
-                                  print(responsedetails.body);
+                                 // print(responsedetails.body);
 
                                   Future.delayed(Duration(seconds: 3), () {
                                     CircularProgressIndicator();

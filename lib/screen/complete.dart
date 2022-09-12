@@ -32,12 +32,12 @@ class _completedState extends State<completed> {
   }
 
   void _sendSMS(String message, List<String> recipents) async {
-    print("Enter");
+   // print("Enter");
     String _result = await sendSMS(message: message, recipients: recipents)
         .catchError((onError) {
-      print(onError);
+     // print(onError);
     });
-    print(_result);
+   // print(_result);
   }
 
   @override

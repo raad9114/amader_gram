@@ -8,7 +8,6 @@ import '../model/patient_details.dart';
 import 'assistantcomplete.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class assistantwork extends StatefulWidget {
   // const assistantwork({Key? key}) : super(key: key);
   assistantwork({required this.id});
@@ -39,20 +38,17 @@ class _assistantworkState extends State<assistantwork> {
     }
   }
 
-
   late PatientDetailsModel patientDetailsModel;
 
-  mobileNumber()async {
-    var response = await http.post(Uri.parse('http://agcrcdigitalhealthservices.cloud-ag.net/patient_mobile.php'),
-        body: jsonEncode(<String, String>{
-          "id": widget.id
-        })
-    );
+  mobileNumber() async {
+    var response = await http.post(
+        Uri.parse(
+            'http://agcrcdigitalhealthservices.cloud-ag.net/patient_mobile.php'),
+        body: jsonEncode(<String, String>{"id": widget.id}));
 
-    print(response.body);
+    //print(response.body);
 
     patientDetailsModel = patientDetailsModelFromJson(response.body);
-
   }
 
   bool isdisable = false;
@@ -62,7 +58,7 @@ class _assistantworkState extends State<assistantwork> {
     super.initState();
     mobileNumber();
     isdisable = false;
-    print(isdisable);
+ //   print(isdisable);
   }
 
   @override
@@ -117,7 +113,8 @@ class _assistantworkState extends State<assistantwork> {
                         },
                         textAlign: TextAlign.center,
                         maxLines: 3,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -174,7 +171,6 @@ class _assistantworkState extends State<assistantwork> {
                   SizedBox(
                     height: 10,
                   ),
-
                   Card(
                     child: ExpansionTile(
                       title: ListTile(
@@ -199,12 +195,11 @@ class _assistantworkState extends State<assistantwork> {
                       children: <Widget>[
                         FlatButton(
                           minWidth: MediaQuery.of(context).size.width,
-                            onPressed: (){
-                              _launch();
-                            }, 
-                            child: Text("Open MS Team"),
+                          onPressed: () {
+                            _launch();
+                          },
+                          child: Text("Open MS Team"),
                         )
-
                       ],
                     ),
                   ),
@@ -229,10 +224,8 @@ class _assistantworkState extends State<assistantwork> {
                           },
                         ),
                       ),
-
                     ),
                   ),
-
                   const SizedBox(
                     height: 10,
                   ),
@@ -256,7 +249,8 @@ class _assistantworkState extends State<assistantwork> {
                           suggestion_mo = input;
                         },
                         textAlign: TextAlign.center,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
+                        decoration:
+                            const InputDecoration(border: OutlineInputBorder()),
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -287,7 +281,8 @@ class _assistantworkState extends State<assistantwork> {
                           councilor = input;
                         },
                         textAlign: TextAlign.center,
-                        decoration: InputDecoration(border: OutlineInputBorder()),
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -295,7 +290,6 @@ class _assistantworkState extends State<assistantwork> {
                       ),
                     ),
                   ),
-
                   const SizedBox(
                     height: 10,
                   ),
@@ -303,60 +297,59 @@ class _assistantworkState extends State<assistantwork> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RaisedButton(
-                        onPressed: isdisable ? null : () async {
+                        onPressed: isdisable
+                            ? null
+                            : () async {
+                                setState(() {
+                                  isdisable = true;
+                                });
 
-                          setState((){
-                            isdisable = true;
-                          });
-                          var response = await http.post(
-                              Uri.parse(
-                                  'http://agcrcdigitalhealthservices.cloud-ag.net/medicalassistantupdate.php'),
-                              body: jsonEncode(<String, String>{
-                                "id": widget.id,
-                                "observation_ma": observation_ma,
-                                "suggestion_ma": suggestion_ma,
-                                "shedule_vc": shedule_vc,
-                                "suggestion_mo": suggestion_mo,
-                                "councilor": councilor
-                              }));
-                          var responsedetails = await http.post(
-                              Uri.parse(
-                                  'http://agcrcdigitalhealthservices.cloud-ag.net/medicalassistantupdatedetails.php'),
-                              body: jsonEncode(<String, String>{
-                                "pid": widget.id,
-                                "observation_ma": observation_ma,
-                                "suggestion_ma": suggestion_ma,
-                                "shedule_vc": shedule_vc,
-                                "suggestion_mo": suggestion_mo,
-                                "councilor": councilor
-                              }));
+                                var responsedetails = await http.post(
+                                    Uri.parse(
+                                        'http://agcrcdigitalhealthservices.cloud-ag.net/medicalassistantupdatedetails.php'),
+                                    body: jsonEncode(<String, String>{
+                                      "pid": widget.id,
+                                      "observation_ma": observation_ma,
+                                      "suggestion_ma": suggestion_ma,
+                                      "shedule_vc": shedule_vc,
+                                      "suggestion_mo": suggestion_mo,
+                                      "councilor": councilor
+                                    }));
 
-                          print(response.body);
-                          print(responsedetails.body);
+                                //  print(response.body);
+                             //   print(responsedetails.body);
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => assistantcompleted(
-                                    pnumber: patientDetailsModel.mobile,
-                                    pid: patientDetailsModel.id,
-                                    pname: patientDetailsModel.pname,
-                                    DOC: patientDetailsModel.doc,
-                                    BPs: patientDetailsModel.systolic,
-                                    DOB: patientDetailsModel.dob,
-                                    BPd: patientDetailsModel.diastolic,
-                                    gender: patientDetailsModel.sex,
-                                    member: patientDetailsModel.membership,
-                                    major: patientDetailsModel.complainOfDay,
-                                    diabetes: patientDetailsModel.diabeticStatus,
-                                    sugMO: suggestion_mo,
-                                    sugMA: suggestion_ma,
-                                    obsMA: observation_ma,
-                                    councilor: councilor,
-                                    diabeticvalue: patientDetailsModel.diabeticvalue,
-                                    mothername: patientDetailsModel.mothername,
-                                  )));
-                        },
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            assistantcompleted(
+                                              pnumber:
+                                                  patientDetailsModel.mobile,
+                                              pid: patientDetailsModel.id,
+                                              pname: patientDetailsModel.pname,
+                                              DOC: patientDetailsModel.doc,
+                                              BPs: patientDetailsModel.systolic,
+                                              DOB: patientDetailsModel.dob,
+                                              BPd:
+                                                  patientDetailsModel.diastolic,
+                                              gender: patientDetailsModel.sex,
+                                              member: patientDetailsModel
+                                                  .membership,
+                                              major: patientDetailsModel
+                                                  .complainOfDay,
+                                              diabetes: patientDetailsModel
+                                                  .diabeticStatus,
+                                              sugMO: suggestion_mo,
+                                              sugMA: suggestion_ma,
+                                              obsMA: observation_ma,
+                                              councilor: councilor,
+                                              diabeticvalue: patientDetailsModel
+                                                  .diabeticvalue,
+                                              mothername: patientDetailsModel
+                                                  .mothername,
+                                            )));
+                              },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(80.0)),
                         textColor: Colors.white,

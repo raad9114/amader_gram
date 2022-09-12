@@ -55,12 +55,12 @@ class _assistantcompletedState extends State<assistantcompleted> {
 
 
   void _sendSMS(String message, List<String> recipents) async {
-    print(recipents);
+ //   print(recipents);
     String _result = await sendSMS(message: message, recipients: recipents)
         .catchError((onError) {
-      print(onError);
+    //  print(onError);
     });
-    print(_result);
+   // print(_result);
   }
 
 

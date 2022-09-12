@@ -37,7 +37,7 @@ class _Follow_up_searchState extends State<Follow_up_search> {
       Uri.parse('http://agcrcdigitalhealthservices.cloud-ag.net/getdata.php'),
     );
 
-    print(response.body);
+  //  print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

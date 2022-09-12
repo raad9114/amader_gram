@@ -5,6 +5,7 @@ import '../model/search_by_id.dart';
 import 'package:http/http.dart' as http;
 
 import 'assistant.dart';
+
 class SearchData extends StatefulWidget {
   // const SearchData({Key? key}) : super(key: key);
 
@@ -25,12 +26,13 @@ class _SearchDataState extends State<SearchData> {
 
   Future<List<SearchById>> fetchPost() async {
     var response = await http.post(
-        Uri.parse('http://agcrcdigitalhealthservices.cloud-ag.net/getdatabyid.php'),
+        Uri.parse(
+            'http://agcrcdigitalhealthservices.cloud-ag.net/getdatabyid.php'),
         body: jsonEncode(<String, String>{
           "pid": widget.id,
         }));
 
-    print(response.body);
+   // print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -48,7 +50,6 @@ class _SearchDataState extends State<SearchData> {
     super.initState();
     futurePost = fetchPost();
     fetchPost();
-
   }
 
   @override
@@ -61,7 +62,7 @@ class _SearchDataState extends State<SearchData> {
           appBar: AppBar(
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
-                onPressed: (){
+                onPressed: () {
                   Navigator.pop(context);
                 },
                 color: Colors.black),
@@ -80,7 +81,6 @@ class _SearchDataState extends State<SearchData> {
                     child: FutureBuilder<List<SearchById>>(
                       future: futurePost,
                       builder: (context, snapshot) {
-
                         if (snapshot.hasData) {
                           return ListView.builder(
                             shrinkWrap: true,
@@ -121,7 +121,8 @@ class _SearchDataState extends State<SearchData> {
                                   ),
                                 ),
                                 Text(
-                                  "4. Gender: " + "${snapshot.data![index].sex}",
+                                  "4. Gender: " +
+                                      "${snapshot.data![index].sex}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -211,7 +212,8 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "15. Diabetic: " +
-                                      "${snapshot.data![index].diabeticStatus} " " ${snapshot.data![index].diabeticvalue}",
+                                      "${snapshot.data![index].diabeticStatus} "
+                                          " ${snapshot.data![index].diabeticvalue}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -219,7 +221,7 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "16. Major Complain: "
-                                      "${snapshot.data![index].complainOfDay}",
+                                  "${snapshot.data![index].complainOfDay}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -227,7 +229,7 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "17. Observations By Medical Assistant: "
-                                      "${snapshot.data![index].observationMa}",
+                                  "${snapshot.data![index].observationMa}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -235,7 +237,7 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "18. Suggestions By Medical Assistant: "
-                                      "${snapshot.data![index].suggestionMa}",
+                                  "${snapshot.data![index].suggestionMa}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -243,7 +245,7 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "19. Voice Chat: "
-                                      "${snapshot.data![index].sheduleVc}",
+                                  "${snapshot.data![index].sheduleVc}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -251,7 +253,7 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "20. Suggestion from Medical Officer: "
-                                      "${snapshot.data![index].suggestionMo}",
+                                  "${snapshot.data![index].suggestionMo}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
@@ -259,44 +261,49 @@ class _SearchDataState extends State<SearchData> {
                                 ),
                                 Text(
                                   "21. Comments From Councilor : "
-                                      "${snapshot.data![index].councilor}",
+                                  "${snapshot.data![index].councilor}",
                                   style: GoogleFonts.lato(
                                     fontSize: 20,
                                     color: Colors.black,
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 40,
                                 ),
-
-                                if(widget.role == 'MO')...[
-
-                                ]else if(widget.role == 'MA' || widget.role =='Medical Assistant'  && index+1 == snapshot.data!.length && !snapshot.hasError)...[
+                                if (widget.role == 'MO')
+                                  ...[]
+                                else if (widget.role == 'MA' ||
+                                    widget.role == 'Medical Assistant' &&
+                                        index + 1 == snapshot.data!.length &&
+                                        !snapshot.hasError) ...[
                                   Center(
                                     child: RaisedButton(
                                       onPressed: () {
-                                        print(widget.id);
+                                     // print(widget.id);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    assistantwork(id: widget.id,)));
+                                                    assistantwork(
+                                                      id: widget.id,
+                                                    )));
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(80.0)),
+                                              BorderRadius.circular(80.0)),
                                       textColor: Colors.white,
                                       padding: const EdgeInsets.all(0),
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 50.0,
-                                        width: MediaQuery.of(context).size.width *
-                                            0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                         decoration: new BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(80.0),
-                                            gradient: new LinearGradient(colors: [
+                                                BorderRadius.circular(80.0),
+                                            gradient:
+                                                new LinearGradient(colors: [
                                               Color.fromARGB(255, 255, 136, 34),
                                               Color.fromARGB(255, 255, 177, 41)
                                             ])),
@@ -312,31 +319,38 @@ class _SearchDataState extends State<SearchData> {
                                       ),
                                     ),
                                   ),
-                                ]else if(widget.role == 'Health Program Supervisor'  && index+1 == snapshot.data!.length && !snapshot.hasError)...[
+                                ] else if (widget.role ==
+                                        'Health Program Supervisor' &&
+                                    index + 1 == snapshot.data!.length &&
+                                    !snapshot.hasError) ...[
                                   Center(
                                     child: RaisedButton(
                                       onPressed: () {
-                                        print(widget.id);
+                                      //  print(widget.id);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    assistantwork(id: widget.id,)));
+                                                    assistantwork(
+                                                      id: widget.id,
+                                                    )));
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(80.0)),
+                                              BorderRadius.circular(80.0)),
                                       textColor: Colors.white,
                                       padding: const EdgeInsets.all(0),
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 50.0,
-                                        width: MediaQuery.of(context).size.width *
-                                            0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                         decoration: new BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(80.0),
-                                            gradient: new LinearGradient(colors: [
+                                                BorderRadius.circular(80.0),
+                                            gradient:
+                                                new LinearGradient(colors: [
                                               Color.fromARGB(255, 255, 136, 34),
                                               Color.fromARGB(255, 255, 177, 41)
                                             ])),
@@ -353,12 +367,9 @@ class _SearchDataState extends State<SearchData> {
                                     ),
                                   ),
                                 ],
-
-
                                 SizedBox(
                                   height: 20,
                                 ),
-
                               ],
                             ),
                           );
@@ -376,10 +387,6 @@ class _SearchDataState extends State<SearchData> {
                     ),
                   ),
                 ),
-
-
-
-
               ],
             ),
           ),
